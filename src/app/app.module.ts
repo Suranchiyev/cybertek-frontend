@@ -21,6 +21,7 @@ import {UploadModule} from "./upload/upload.module";
 import {AdminProfileComponent, NgbdModalContent, NgbdSortableHeader} from './admin-profile/admin-profile.component';
 
 
+
 const routes: Routes = [
   {path: 'home',
    component: HomeComponent},
