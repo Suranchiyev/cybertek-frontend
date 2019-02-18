@@ -24,7 +24,7 @@ export class ProfileServer {
   }
 
   public checkProfile(): Observable<any> {
-    let base = this.http.get(`/api/profile`,{headers: {Authorization: `Bearer ${this.getToken()}`}});
+    let base = this.http.get(`https://cybertek-resume-server.herokuapp.com/api/profile`,{headers: {Authorization: `Bearer ${this.getToken()}`}});
     const request = base.pipe(
       map((data: Object) => {
         console.log(data);

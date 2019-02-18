@@ -137,9 +137,9 @@ export class AuthenticationService {
     let base;
 
     if (method === 'post') {
-      base = this.http.post(`/api/${type}`, user);
+      base = this.http.post(`https://cybertek-resume-server.herokuapp.com/api/${type}`, user);
     } else {
-      base = this.http.get(`/api/${type}`, {headers: {Authorization: `Bearer ${this.getToken()}`}});
+      base = this.http.get(`https://cybertek-resume-server.herokuapp.com/api/${type}`, {headers: {Authorization: `Bearer ${this.getToken()}`}});
     }
 
     const request = base.pipe(
@@ -194,7 +194,7 @@ export class AuthenticationService {
    **/
 
   public addProfile(profile: Profile): Observable<any> {
-    let base = this.http.post(`/api/addProfile`, profile,{headers: {Authorization: `Bearer ${this.getToken()}`}});
+    let base = this.http.post(`https://cybertek-resume-server.herokuapp.com/api/addProfile`, profile,{headers: {Authorization: `Bearer ${this.getToken()}`}});
     const request = base.pipe(
       map((data: Profile) => {
         return data;
@@ -204,7 +204,7 @@ export class AuthenticationService {
   }
 
   public getProfile(): Observable<Student> {
-    let base = this.http.get(`/api/profile`,{headers: {Authorization: `Bearer ${this.getToken()}`}});
+    let base = this.http.get(`https://cybertek-resume-server.herokuapp.com/api/profile`,{headers: {Authorization: `Bearer ${this.getToken()}`}});
     const request = base.pipe(
       map((data: Student) => {
         // if(obj.resume !== undefined){
@@ -221,7 +221,7 @@ export class AuthenticationService {
   }
 
   public getProfiles(): Observable<Student[]>{
-    let base = this.http.get(`/api/get-all-profiles`,{headers: {Authorization: `Bearer ${this.getToken()}`}});
+    let base = this.http.get(`https://cybertek-resume-server.herokuapp.com/api/get-all-profiles`,{headers: {Authorization: `Bearer ${this.getToken()}`}});
     const request = base.pipe(
       map((data: Student[]) =>{
        const students: Student[] = data;
@@ -232,7 +232,7 @@ export class AuthenticationService {
   }
 
   public updateResume(resume: Resume): Observable<any>{
-    let base = this.http.post(`/api/update-resume`,resume,{headers: {Authorization: `Bearer ${this.getToken()}`}});
+    let base = this.http.post(`https://cybertek-resume-server.herokuapp.com/api/update-resume`,resume,{headers: {Authorization: `Bearer ${this.getToken()}`}});
     const request = base.pipe(
       map((data: Resume) => {
         return data;
