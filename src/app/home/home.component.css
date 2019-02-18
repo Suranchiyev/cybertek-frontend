@@ -1,0 +1,30 @@
+.signUp-logIn-cont{
+  display: flex;
+}
+.signUp-logIn{
+  width: 50%;
+  flex: auto;
+  padding: 15px;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-size: 14px;
+  box-shadow: none;
+  background: #fff;
+  color: #2e3d49;
+  font: 400 13.3333px Arial;
+  font-weight: bold;
+  border: none;
+  border-bottom:1px solid #dbe2e8;
+}
+#sig-in{
+  border-right:1px solid #dbe2e8;
+}
+#log-in{
+  border-left:1px solid #dbe2e8;
+}
+.container{
+  margin-top: 2%;
+  padding-right: 0%;
+  padding-left: 0%;
+}

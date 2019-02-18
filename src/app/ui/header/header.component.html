@@ -1,0 +1,33 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a *ngIf="!auth.isLoggedIn()" class="navbar-brand" routerLink="login">
+      <img class="logo" alt="Logo" src="assets/img/CYBERTEK_Best.png">
+  </a>
+  <a *ngIf="auth.isLoggedIn() && !auth.isAdmin()" class="navbar-brand" routerLink="/profile">
+    <img class="logo" alt="Logo" src="assets/img/CYBERTEK_Best.png">
+  </a>
+  <a *ngIf="auth.isLoggedIn() && auth.isAdmin()" class="navbar-brand" routerLink="/admin-profile">
+    <img class="logo" alt="Logo" src="assets/img/CYBERTEK_Best.png">
+  </a>
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav" style="width: 94%;">
+      <li *ngIf="auth.isLoggedIn() && !auth.isAdmin()" class="nav-item active">
+        <a class="nav-link" routerLink="/profile">My Profile<span class="sr-only">(current)</span></a>
+      </li>
+      <li *ngIf="this.isCustomized && auth.isLoggedIn() && !auth.isAdmin()" class="nav-item">
+        <a class="nav-link" routerLink="/resume">Resume</a>
+      </li>
+      <li *ngIf="auth.isLoggedIn() && !auth.isAdmin()" class="nav-item">
+        <a class="nav-link" routerLink="#">Market Tips</a>
+      </li>
+    </ul>
+    <ul class="navbar-nav">
+      <li *ngIf="auth.isLoggedIn()" class="nav-item log-out" >
+        <a (click)="auth.logout()" class="nav-link">Log out</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+<router-outlet></router-outlet>
+
+
+

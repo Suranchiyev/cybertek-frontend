@@ -1,0 +1,131 @@
+<div *ngIf="isDataLoaded">
+<div *ngIf="student.profile === undefined" class="container">
+  <div class="row">
+    <h4 class="header-text hello">Hello {{ student?.first_name }} {{ student?.last_name }}, lets first customize your
+      profile</h4>
+  </div>
+  <div class="row">
+    <div class="col-xl-8">
+      <p class="description-text">Please choose your Resume type:</p>
+      <div class="cust-buttons">
+        <button type="button" class="btn btn-outline-primary"
+                (click)="isCybertekResume = !isCybertekResume; isTraditionalResume = true;"
+                [attr.aria-expanded]="!isCybertekResume" aria-controls="cybertekResume">
+          Cybertek Resume
+        </button>
+
+        <button id="trad-resume" type="button" class="btn btn-outline-primary"
+                (click)="isTraditionalResume = !isTraditionalResume; isCybertekResume = true"
+                [attr.aria-expanded]="!isTraditionalResume" aria-controls="collapseExample">
+          Traditional Resume
+        </button>
+      </div>
+      <form (submit)="addProfile()">
+        <div id="cybertekResume" [ngbCollapse]="isCybertekResume">
+          <div class="card">
+            <div class="card-body description-text">
+              <h5 class="header-text">Experience</h5>
+              Please list all real experience you have(jobs,volunteering,internship)
+              <textarea name="experience" class="tx-aria" [(ngModel)]="profile.experience"></textarea>
+            </div>
+          </div>
+          <div class="card last">
+            <div class="card-body description-text">
+              <h5 class="header-text">Education</h5>
+              Please list all educational background
+              <textarea name="education" class="tx-aria" [(ngModel)]="profile.education"></textarea>
+            </div>
+          </div>
+        </div>
+
+
+        <div id="collapseExample" [ngbCollapse]="isTraditionalResume">
+          <div class="card">
+            <div class="card-body description-text">
+              <h5 class="header-text">Location History</h5>
+              location history (Where you have lived from when to when month/year, city/state format)
+
+              <textarea name="locationHistory" class="tx-aria" [(ngModel)]="profile.locationHistory"></textarea>
+
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-body description-text">
+              <h5 class="header-text">Specific client</h5>
+              if you have specific or types of clients you prefer
+
+              <textarea name="specificClient" class="tx-aria" [(ngModel)]="profile.specificClient"></textarea>
+
+            </div>
+          </div>
+          <div class="card last">
+            <div class="card-body description-text">
+              <h5 class="header-text">Specific client(avoid)</h5>
+              if you have specific or types of clients you want to avoid (because you want to apply there)
+
+              <textarea name="specificClientAvoid" class="tx-aria" [(ngModel)]="profile.specificClientAvoid"></textarea>
+
+            </div>
+          </div>
+        </div>
+        <button *ngIf="!(isCybertekResume && isTraditionalResume)" class="submit-prof-cust last-btn" type="submit">Submit
+        </button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="student.profile !== undefined" class="container">
+  <div class="profile">
+    <div class="profile-head">
+      <div class="profile-pic-section">
+        <img class="profile-picture" alt="profile picture" src="assets/img/blank-profile-picture.png">
+      </div>
+      <div class="profile-desc-section">
+        <h2 class="text">{{ student?.first_name }} {{ student?.last_name }}</h2>
+        <h4 class="text">{{ student?.study_course }}, Batch: {{ student?.batch_number }} </h4>
+        <h4 class="text">Email: {{ student?.email }}</h4>
+      </div>
+    </div>
+    <div class="profile-body">
+      <table class="table-details">
+        <tbody>
+        <tr class="table-row description-text">
+          <td class="label">Visa:</td>
+          <td class="val-info">{{ student?.visa }}</td>
+        </tr>
+        <tr class="table-row description-text">
+          <td class="label">Resume Type:</td>
+          <td class="val-info">{{ student.profile?.resumeType}}</td>
+        </tr>
+        <tr class="table-row description-text" *ngIf="student.profile?.resumeType === 'CybertekResume'">
+          <td class="label">Experience:</td>
+          <td class="val-info">{{student.profile?.experience}}</td>
+        </tr>
+        <tr class="table-row description-text" *ngIf="student.profile?.resumeType === 'CybertekResume'">
+          <td class="label">Education:</td>
+          <td class="val-info">{{ student.profile?.education}}</td>
+        </tr>
+        <tr class="table-row description-text" *ngIf="student.profile?.resumeType === 'TraditionalResume'">
+          <td class="label">Location History:</td>
+          <td class="val-info">{{ student.profile?.locationHistory}}</td>
+        </tr>
+        <tr class="table-row description-text" *ngIf="student.profile?.resumeType === 'TraditionalResume'">
+          <td class="label">Specific client:</td>
+          <td class="val-info">{{ student.profile?.specificClient}}</td>
+        </tr>
+        <tr class="table-row description-text" *ngIf="student.profile?.resumeType === 'TraditionalResume'">
+          <td class="label">Specific client(avoid):</td>
+          <td class="val-info">{{ student.profile?.specificClientAvoid}}</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="resume-btn">
+      <div class="description-text">Start work on your resume:</div>
+      <a routerLink="/resume"><button >Resume</button></a>
+    </div>
+  </div>
+</div>
+<router-outlet></router-outlet>
+</div>

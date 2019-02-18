@@ -1,0 +1,42 @@
+<div class="container">
+  <div class="resume-section">
+    <h2 class="header-text">It Takes Time</h2>
+    <p class="description-text">&nbsp;&nbsp;Resume is you. Please take your time to write good resume. You might spend at least one
+    week to get it ready. You can write example in one day and then every day you can check and ask how I can make it better.
+    Give to your peers for review. Always try to find good examples so you can take some ideas from it.</p>
+  </div>
+  <div class="resume-section">
+    <h2 class="header-text">Format Your Resume Wisely</h2>
+    <p class="description-text">&nbsp;&nbsp;No matter how well written, your resume won't get a thorough reading the first time through.
+      Generally a resume gets scanned for 25 seconds. Scanning is more difficult if it is hard to read, poorly organized or exceeds two pages. Use a logical format and wide margins, clean type and clear headings.
+      Selectively apply bold and italic typeface that help guide the reader's eye. Use bullets to call attention to important points (i.e. accomplishments)</p>
+  </div>
+  <div class="resume-section">
+    <div class="text">Download examples:</div>
+    <div><a href="#">Example One</a></div>
+    <div><a href="#">Example Two</a></div>
+    <div><a href="#">Example Three</a></div>
+  </div>
+  <!--<div class="status-resume">-->
+    <!--<p *ngIf="resume.status === 'empty'" class="form-description">Please upload your resume. Cybertek Team will review it and send you back ready resume for the market(in some cases we might ask to resubmit)</p>-->
+    <!--<p *ngIf="resume.status === 'submitted'" class="form-description">You can resubmit your resume till is not reviewing</p>-->
+    <!--<p *ngIf="resume.status === 'reviewing'" class="form-description">Your resume is reviewing</p>-->
+    <!--<p *ngIf="resume.status === 'completed'" class="form-description">Your resume is compelted! Best of luck on the market.</p>-->
+    <!--<app-upload *ngIf="resume.status === 'empty' || resume.status === 'submitted'"></app-upload>-->
+  <!--</div>-->
+  <div class="resume-section">
+    <p *ngIf="resume.status === 'empty'" class="form-description">Please upload your resume. Cybertek Team will review it and send you back ready resume for the market(in some cases we might ask to resubmit)</p>
+    <p *ngIf="resume.status === 'submitted'" class="form-description">You can resubmit your resume till is not reviewing</p>
+    <p *ngIf="resume.status === 'reviewing'" class="form-description">Your resume is reviewing</p>
+    <p *ngIf="resume.status === 'completed'" class="form-description">Your resume is compelted! Best of luck on the market.</p>
+    <app-upload *ngIf="resume.status === 'empty' || resume.status === 'submitted'"></app-upload>
+
+    <p class="resume-bar" *ngIf="resume.status === 'submitted'"><ngb-progressbar type="success" [value]="40">submitted</ngb-progressbar></p>
+    <p class="resume-bar" *ngIf="resume.status === 'empty'"><ngb-progressbar type="success" [value]="0">Resume is not submitted</ngb-progressbar></p>
+    <p class="resume-bar" *ngIf="resume.status === 'reviewing'"><ngb-progressbar type="info" [value]="70">reviewing</ngb-progressbar></p>
+    <p class="resume-bar" *ngIf="resume.status === 'completed'"><ngb-progressbar type="success" [value]="100">completed</ngb-progressbar></p>
+    <div *ngIf="resume.status === 'completed'"><a href="{{resume.cybertek_resume}}">Download completed resume</a></div>
+    <div *ngIf="resume.status === 'submitted'"><a href="{{resume.student_resume}}">Download submitted resume</a></div>
+  </div>
+  <div class="last-element"></div>
+</div>

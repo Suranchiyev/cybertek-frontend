@@ -1,0 +1,23 @@
+<app-home></app-home>
+<div class="container">
+  <div class="main-section">
+    <div class="form-container">
+      <div class="form-header">Sign In to your account</div>
+      <form id="logIn-form" (submit)="login()">
+        <div *ngIf="!isValidForm" class="alert alert-danger">
+          <div>
+            All fields are required.
+          </div>
+        </div>
+        <div class="email-section inputs">
+          <input type="email" name="email" placeholder='Email*' [(ngModel)]="credentials.email">
+        </div>
+        <div class="inputs">
+          <input type="password" placeholder='Password*' [(ngModel)]="credentials.password" name="password_logIn">
+        </div>
+        <button id="sign-up-button" type="submit">Sign In</button>
+      </form>
+    </div>
+  </div>
+</div>
+

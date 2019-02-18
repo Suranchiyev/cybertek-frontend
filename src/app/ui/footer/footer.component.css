@@ -1,0 +1,14 @@
+.fa-heart {
+  color: red;
+  padding-left: 0.5%;
+  padding-right: 0.5%;
+  padding-top: 0.3%;
+}
+#footer-name{
+  color: black;
+  padding-left: 0.3%;
+}
+.footer-div{
+  width: 100%;
+  display: inline-flex;
+}

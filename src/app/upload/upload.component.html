@@ -1,0 +1,2 @@
+<button *ngIf="!auth.isAdmin()" mat-raised-button (click)="openUploadDialog()">Upload</button>
+<a *ngIf="auth.isAdmin()" (click)="openUploadDialog()">Upload</a>

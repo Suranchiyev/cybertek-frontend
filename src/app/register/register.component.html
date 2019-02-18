@@ -1,0 +1,52 @@
+<app-home></app-home>
+<div class="main-section">
+  <div class="form-container">
+    <div *ngIf="!isAdmin" class="form-header">Create your student account</div>
+    <div *ngIf="!isAdmin" class="form-description">Your student account information will be use to review your resume and other Cybertek School market processes.
+      Make sure all data correct
+    </div>
+
+    <form id="signUp-form" (submit)="register()">
+      <div *ngIf="!isValidForm" class="alert alert-danger">
+        <div>
+          All fields are required.
+        </div>
+      </div>
+      <div *ngIf="!isPasswordsMatch" class="alert alert-danger">
+        <div>
+          Passwords do not match.
+        </div>
+      </div>
+      <div class="form-inputs">
+        <div class="inputs full-name">
+          <input name="first_name" type="text" placeholder='First Name*' [(ngModel)]="credentials.first_name" #first_name="ngModel">
+          <input name="last_name" type="text" placeholder='Last Name*' [(ngModel)]="credentials.last_name" #last_name="ngModel">
+        </div>
+        <div class="inputs email">
+          <input *ngIf="isAdmin" type="email" name="email"  placeholder='Email*' [(ngModel)]="credentials.email">
+          <input *ngIf="!isAdmin" type="email" id="email-student" name="email"  placeholder='Email*' [(ngModel)]="credentials.email">
+          <select *ngIf="!isAdmin" type="text"  name="visa" id="gender-select" [(ngModel)]="credentials.visa" >
+            <option id="option-hidden" value="" disabled selected hidden>Visa Status*</option>
+            <option value="Citizen">U.S. Citizen</option>
+            <option value="GreenCard">Green Card holder</option>
+            <option value="EAD">Work Authorization(EAD)</option>
+            <option value="undefined">Undefined</option>
+          </select>
+        </div>
+        <div *ngIf="!isAdmin" class="inputs study-course">
+          <input type="text" placeholder='Study Course* ex: SDET' name="study_course" [(ngModel)]="credentials.study_course">
+          <input type="number" min="1" name="batch_number" placeholder='Batch#*' [(ngModel)]="credentials.batch_number">
+        </div>
+        <div class="inputs credentials">
+          <input type="password" placeholder='Password*' name="password" [(ngModel)]="credentials.password">
+          <input type="password" name="confirm-password" placeholder='Confirm Password*' [(ngModel)]="confirmPassword">
+        </div>
+        <div class="isAdmin-section" >
+          <input type="checkbox" id="isAdmin-radio" (click)="registerAsAdmin()"><div class="isAdmin-txt">Cybertek Team</div>
+        </div>
+
+      </div>
+      <button id="sign-up-button" type="submit">Sign Up</button>
+    </form>
+  </div>
+</div>

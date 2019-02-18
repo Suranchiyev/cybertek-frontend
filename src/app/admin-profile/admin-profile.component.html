@@ -1,0 +1,47 @@
+<div class="admin-cont">
+
+<table class="table table-striped">
+  <thead>
+  <tr>
+    <!--<th scope="col" sortable="name" (sort)="onSort($event)">Name</th>-->
+    <th scope="col" scope="col" sortable="first_name" (sort)="onSort($event)" >Name</th>
+    <th scope="col" >Batch</th>
+    <th scope="col" >Resume</th>
+    <th scope="col" >Visa</th>
+    <th scope="col" sortable="date" (sort)="onSort($event)">Submitted Date</th>
+    <th scope="col" >Status</th>
+    <th scope="col">Action</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let student of students">
+    <td>
+      {{ student.first_name+' '+student.last_name}}
+    </td>
+    <td>{{ student.batch_number }}</td>
+    <td *ngIf="student.profile !== undefined">{{ student.profile.resumeType }}</td>
+    <td *ngIf="student.profile === undefined">{{ "N/A" }}</td>
+    <td>{{ student.visa }}</td>
+    <td *ngIf="student.resume !== undefined">{{student.date | date:'MM/dd/yyyy'}}</td>
+    <td *ngIf="student.resume === undefined">{{ "N/A" }}</td>
+    <td *ngIf="student.resume !== undefined">
+      <p *ngIf="student.resume.status === 'submitted'"><ngb-progressbar type="success" [value]="40">submitted</ngb-progressbar></p>
+      <p *ngIf="student.resume.status === 'empty'"><ngb-progressbar type="success" [value]="0">not submitted</ngb-progressbar></p>
+      <p *ngIf="student.resume.status === 'reviewing'"><ngb-progressbar type="info" [value]="70">reviewing</ngb-progressbar></p>
+      <p *ngIf="student.resume.status === 'completed'"><ngb-progressbar type="success" [value]="100">completed</ngb-progressbar></p>
+    </td>
+    <td *ngIf="student.resume === undefined"><p><ngb-progressbar type="success" [value]="0">not submitted</ngb-progressbar></p></td>
+    <td>
+      <div class="btn-group" ngbDropdown role="group" aria-label="Button group with nested dropdown">
+        <button id="action-admin-triger" class="btn btn-primary dropdown-toggle-split" ngbDropdownToggle></button>
+        <div class="dropdown-menu" ngbDropdownMenu>
+          <a *ngIf="student.resume !== undefined" (click)="open(student.resume)" class="dropdown-item">Review</a>
+          <a class="dropdown-item" (click)="setResume(student)"><app-upload></app-upload></a>
+          <a class="dropdown-item"(click)="resubmit(student.resume)">Resubmit</a>
+        </div>
+      </div>
+    </td>
+  </tr>
+  </tbody>
+</table>
+</div>

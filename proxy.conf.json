@@ -1,0 +1,6 @@
+{
+  "/api": {
+    "target": "https://cybertek-resume-server.herokuapp.com",
+    "secure": false
+  }
+}

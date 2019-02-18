@@ -1,0 +1,66 @@
+
+.form-container {
+  padding: 50px;
+}
+
+.form-description {
+  font-size: 12px;
+  line-height: 1.6;
+  color: #525c65;
+  max-width: 460px;
+  margin: 20px 0;
+  text-align: left;
+}
+
+.full-name, .study-course, .credentials, .email {
+  display: flex;
+}
+
+input[name='first_name'],input[name='password'],input[id='"email-student"']{
+  width: 50%;
+  margin-right: 10px;
+}
+input[name='confirm-password'],input[name='last_name'],select[name='visa'] {
+  width: 50%;
+}
+
+input[id='"email-student"']{
+  margin-right: 10px;
+}
+
+input[name='study_course'] {
+  width: 80%;
+  margin-right: 10px;
+}
+
+input[name='batch_number'] {
+  width: 20%;
+}
+
+#isAdmin-radio{
+  width: 3%;
+  border: 1px solid #dbe2e8;
+  font-size: 14px;
+  box-shadow: 0 0px 0px 0 rgba(46, 60, 73, 0.05);
+  border-radius: 2px;
+  color: #2e3d49;
+}
+
+#sign-up-button {
+  width: 100%;
+  margin-top: 20px;
+}
+
+#option-hidden{
+  color: grey;
+}
+
+.isAdmin-section{
+  display: flex;
+}
+
+.isAdmin-txt{
+  padding-top: 1.7%;
+  padding-left: 1.7%;
+  color: grey;
+}
