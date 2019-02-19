@@ -83,8 +83,8 @@ export class AuthenticationService {
   private token: string;
   public resume: Resume = new Resume();
   public student: Student;
-  //server: string = 'https://cybertek-resume-server.herokuapp.com';
-  server: string = 'http://localhost:3000';
+  server: string = 'https://cybertek-resume-server.herokuapp.com';
+  //server: string = 'http://localhost:3000';
   constructor(private http: HttpClient, private router: Router) {
   }
 

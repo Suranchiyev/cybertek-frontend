@@ -19,6 +19,7 @@ import { ResumeComponent } from './resume/resume.component';
 import {ProfileServer} from "./profile.server";
 import {UploadModule} from "./upload/upload.module";
 import {AdminProfileComponent, NgbdModalContent, NgbdSortableHeader} from './admin-profile/admin-profile.component';
+import {HttpModule} from '@angular/http';
 
 
 
@@ -56,7 +57,9 @@ const routes: Routes = [
     FormsModule,
     HttpClientModule,
     RouterModule.forRoot(routes),
-    UploadModule
+    UploadModule,
+    FormsModule,
+    HttpModule
   ],
   entryComponents:[NgbdModalContent],
   providers: [
