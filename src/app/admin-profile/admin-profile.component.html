@@ -22,7 +22,7 @@
     <td *ngIf="student.profile !== undefined">{{ student.profile.resumeType }}</td>
     <td *ngIf="student.profile === undefined">{{ "N/A" }}</td>
     <td>{{ student.visa }}</td>
-    <td *ngIf="student.resume !== undefined">{{student.date}}</td>
+    <td *ngIf="student.resume !== undefined">{{student.date | date:'MM/dd/yyyy'}}</td>
     <td *ngIf="student.resume === undefined">{{ "N/A" }}</td>
     <td *ngIf="student.resume !== undefined">
       <p *ngIf="student.resume.status === 'submitted'"><ngb-progressbar type="success" [value]="40">submitted</ngb-progressbar></p>
