@@ -8,11 +8,13 @@ import {
 import { Subject } from "rxjs/Subject";
 import { Observable } from "rxjs/Observable";
 import {AuthenticationService} from "../authentication.service";
+import {environment} from '../../environments/environment';
 
-const url = "api/upload";
+
 
 @Injectable()
 export class UploadService {
+  endpoint: string = environment.APIEndpoint;
   private token : string;
   constructor(private http: HttpClient, public auth: AuthenticationService) {
   }
@@ -38,7 +40,7 @@ export class UploadService {
       // create a http-post request and pass the form
       // tell it to report the upload progress
       const headers = new HttpHeaders({'Authorization' : `Bearer ${this.getToken()}`});
-      const req = new HttpRequest("POST", url, formData, {
+      const req = new HttpRequest("POST", this.endpoint, formData, {
         reportProgress: true,
         headers : headers,
         params: params

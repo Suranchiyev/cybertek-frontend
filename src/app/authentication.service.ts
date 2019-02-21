@@ -2,7 +2,8 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpParams} from '@angular/common/http';
 import {Observable} from 'rxjs/Observable';
 import {map} from 'rxjs/operators/map';
-import {ActivatedRouteSnapshot, Resolve, Router} from '@angular/router';
+import {Router} from '@angular/router';
+import { environment } from '../environments/environment';
 
 export interface Profile {
   resumeType?: string;
@@ -37,7 +38,7 @@ export interface TokenPayload {
   password: string;
   first_name?: string;
   last_name?: string;
-  role?:string;
+  role?: string;
   visa?: string;
   study_course?: string;
   batch_number?: string;
@@ -48,20 +49,20 @@ export class Resume {
   userId?: string;
   student_resume?: string;
   cybertek_resume?: string;
-  status?: string = 'empty';
+  status = 'empty';
   student_comments?: string;
   admin_coments?: string;
-  submitted_date?:string;
+  submitted_date?: string;
 }
 
 export class ProfileBean{
-  _id?: string = '';
-  specificClientAvoid?: string = '';
-  specificClient?: string = '';
-  locationHistory?: string = '';
-  education?: string = '';
-  experience?: string = '';
-  resumeType?: string = '';
+  _id = '';
+  specificClientAvoid = '';
+  specificClient = '';
+  locationHistory = '';
+  education = '';
+  experience = '';
+  resumeType = '';
 }
 
 export interface Student{
@@ -75,7 +76,7 @@ export interface Student{
   role?: string;
   profile?: ProfileBean;
   resume?: Resume;
-  date?: Date
+  date?: Date;
 }
 
 @Injectable()
@@ -83,8 +84,7 @@ export class AuthenticationService {
   private token: string;
   public resume: Resume = new Resume();
   public student: Student;
-  server: string = 'https://cybertek-resume-server.herokuapp.com';
-  //server: string = 'http://localhost:3000';
+  endpoint: string = environment.APIEndpoint;
   constructor(private http: HttpClient, private router: Router) {
   }
 
@@ -127,7 +127,7 @@ export class AuthenticationService {
 
   public isAdmin(): boolean {
     const user = this.getUserDetails();
-    if(user){
+    if (user){
       return user.role === 'admin';
     }else {
       return false;
@@ -138,9 +138,9 @@ export class AuthenticationService {
     let base;
 
     if (method === 'post') {
-      base = this.http.post(`${this.server}/api/${type}`, user);
+      base = this.http.post(`${this.endpoint}/api/${type}`, user);
     } else {
-      base = this.http.get(`${this.server}/api/${type}`, {headers: {Authorization: `Bearer ${this.getToken()}`}});
+      base = this.http.get(`${this.endpoint}/api/${type}`, {headers: {Authorization: `Bearer ${this.getToken()}`}});
     }
 
     const request = base.pipe(
@@ -156,7 +156,7 @@ export class AuthenticationService {
   }
 
   public register(user: TokenPayload): Observable<any> {
-    let resFlag = this.checkEmail(user.email);
+    const resFlag = this.checkEmail(user.email);
     resFlag.pipe(map((str: Object) => {
       return str;
     }));
@@ -181,8 +181,8 @@ export class AuthenticationService {
   }
 
   private checkEmail(email: string): Observable<any> {
-    const params = new HttpParams().set('scope', "crmapi").set('selectColumns', "contacts(Status)").set("searchColumn", "email").set("searchValue", email);
-    let responce = this.http.get("https://crm.zoho.com/crm/private/json/Contacts/getSearchRecordsByPDC", {params});
+    const params = new HttpParams().set('scope', 'crmapi').set('selectColumns', 'contacts(Status)').set('searchColumn', 'email').set('searchValue', email);
+    const responce = this.http.get('https://crm.zoho.com/crm/private/json/Contacts/getSearchRecordsByPDC', {params});
     return responce;
   }
 
@@ -196,7 +196,7 @@ export class AuthenticationService {
    **/
 
   public addProfile(profile: Profile): Observable<any> {
-    let base = this.http.post(`${this.server}/api/addProfile`, profile,{headers: {Authorization: `Bearer ${this.getToken()}`}});
+    const base = this.http.post(`${this.endpoint}/api/addProfile`, profile, {headers: {Authorization: `Bearer ${this.getToken()}`}});
     const request = base.pipe(
       map((data: Profile) => {
         return data;
@@ -206,7 +206,7 @@ export class AuthenticationService {
   }
 
   public getProfile(): Observable<Student> {
-    let base = this.http.get(`${this.server}/api/profile`,{headers: {Authorization: `Bearer ${this.getToken()}`}});
+    const base = this.http.get(`${this.endpoint}/api/profile`, {headers: {Authorization: `Bearer ${this.getToken()}`}});
     const request = base.pipe(
       map((data: Student) => {
         // if(obj.resume !== undefined){
@@ -215,7 +215,7 @@ export class AuthenticationService {
 
         // console.log("Resume:"+obj.resume);
         this.student = data;
-        console.log("Student: "+this.student);
+        console.log('Student: ' + this.student);
         return data;
       })
     );
@@ -223,9 +223,9 @@ export class AuthenticationService {
   }
 
   public getProfiles(): Observable<Student[]>{
-    let base = this.http.get(`${this.server}/api/get-all-profiles`,{headers: {Authorization: `Bearer ${this.getToken()}`}});
+    const base = this.http.get(`${this.endpoint}/api/get-all-profiles`, {headers: {Authorization: `Bearer ${this.getToken()}`}});
     const request = base.pipe(
-      map((data: Student[]) =>{
+      map((data: Student[]) => {
        const students: Student[] = data;
        return students;
     })
@@ -234,7 +234,7 @@ export class AuthenticationService {
   }
 
   public updateResume(resume: Resume): Observable<any>{
-    let base = this.http.post(`${this.server}/api/update-resume`,resume,{headers: {Authorization: `Bearer ${this.getToken()}`}});
+    const base = this.http.post(`${this.endpoint}/api/update-resume`, resume, {headers: {Authorization: `Bearer ${this.getToken()}`}});
     const request = base.pipe(
       map((data: Resume) => {
         return data;
