@@ -40,7 +40,7 @@ export class UploadService {
       // create a http-post request and pass the form
       // tell it to report the upload progress
       const headers = new HttpHeaders({'Authorization' : `Bearer ${this.getToken()}`});
-      const req = new HttpRequest("POST", this.endpoint, formData, {
+      const req = new HttpRequest("POST", `${this.endpoint}/api/upload`, formData, {
         reportProgress: true,
         headers : headers,
         params: params
