@@ -20,8 +20,8 @@ export class ExpirienceComponent implements OnInit {
     for (let i = 0; i <= 20; i++) {
       const optionOne = document.createElement('option');
       const optionTwo = document.createElement('option');
-      optionOne.textContent = year - i;
-      optionTwo.textContent = year - i;
+      optionOne.textContent = (year - i).toString() ;
+      optionTwo.textContent = (year - i).toString();
       optionOne.setAttribute('value', `${year - i}`);
       optionTwo.setAttribute('value', `${year - i}`);
       yearSelect[0].appendChild(optionOne);
