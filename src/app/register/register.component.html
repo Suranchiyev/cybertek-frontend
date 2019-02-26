@@ -2,10 +2,9 @@
 <div class="main-section">
   <div class="form-container">
     <div *ngIf="!isAdmin" class="form-header">Create your student account</div>
-    <div *ngIf="!isAdmin" class="form-description">Your student account information will be use to review your resume and other Cybertek School market processes.
-      Make sure all data correct
+    <div *ngIf="!isAdmin" class="form-description">Your student account information will be used to review your resume and for other Cybertek School market processes.
+      Make sure all the information is correct correct
     </div>
-
     <form id="signUp-form" (submit)="register()">
       <div *ngIf="!isValidForm" class="alert alert-danger">
         <div>
@@ -47,9 +46,8 @@
           <input type="password" name="confirm-password" placeholder='Confirm Password*' [(ngModel)]="confirmPassword">
         </div>
         <div class="isAdmin-section" >
-          <input type="checkbox" id="isAdmin-radio" (click)="registerAsAdmin()"><div class="isAdmin-txt">Cybertek Team</div>
+          <input type="checkbox" id="isAdmin-radio" (click)="registerAsAdmin()"><div class="isAdmin-txt">Cybertek Team(if you are cybertek admissions team member)</div>
         </div>
-
       </div>
       <button id="sign-up-button" type="submit">Sign Up</button>
     </form>

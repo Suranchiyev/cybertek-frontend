@@ -1,10 +1,11 @@
 
 .form-container {
   padding: 50px;
+  padding-top: 20px;
 }
 
 .form-description {
-  font-size: 12px;
+  font-size: 13px;
   line-height: 1.6;
   color: #525c65;
   max-width: 460px;
