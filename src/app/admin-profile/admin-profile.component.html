@@ -36,8 +36,8 @@
         <button id="action-admin-triger" class="btn btn-primary dropdown-toggle-split" ngbDropdownToggle></button>
         <div class="dropdown-menu" ngbDropdownMenu>
           <a *ngIf="student.resume !== undefined" (click)="open(student.resume)" class="dropdown-item">Review</a>
-          <a class="dropdown-item" (click)="setResume(student)"><app-upload></app-upload></a>
-          <a class="dropdown-item"(click)="resubmit(student.resume)">Resubmit</a>
+          <a *ngIf="student.resume !== undefined && (student.resume.status === 'reviewing' || student.resume.status === 'completed')" class="dropdown-item" (click)="setResume(student)"><app-upload></app-upload></a>
+          <a *ngIf="student.resume !== undefined"  class="dropdown-item"(click)="resubmit(student)">Resubmit</a>
         </div>
       </div>
     </td>

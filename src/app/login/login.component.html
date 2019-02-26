@@ -9,6 +9,11 @@
             All fields are required.
           </div>
         </div>
+        <div *ngIf="isError" class="alert alert-danger">
+          <div>
+            {{errorMessage}}
+          </div>
+        </div>
         <div class="email-section inputs">
           <input type="email" name="email" placeholder='Email*' [(ngModel)]="credentials.email">
         </div>

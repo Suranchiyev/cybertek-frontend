@@ -20,6 +20,7 @@ import {ProfileServer} from "./profile.server";
 import {UploadModule} from "./upload/upload.module";
 import {AdminProfileComponent, NgbdModalContent, NgbdSortableHeader} from './admin-profile/admin-profile.component';
 import {HttpModule} from '@angular/http';
+import {ExpirienceComponent} from './profile/expirience/profile.component.experience';
 
 
 
@@ -49,7 +50,8 @@ const routes: Routes = [
     ResumeComponent,
     AdminProfileComponent,
     NgbdSortableHeader,
-    NgbdModalContent
+    NgbdModalContent,
+    ExpirienceComponent
   ],
   imports: [
     NgbModule.forRoot(),

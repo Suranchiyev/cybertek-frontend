@@ -3,7 +3,7 @@ import {HttpClient, HttpParams} from '@angular/common/http';
 import {Observable} from 'rxjs/Observable';
 import {map} from 'rxjs/operators/map';
 import {Router} from '@angular/router';
-import { environment } from '../environments/environment';
+import {environment} from '../environments/environment';
 
 export interface Profile {
   resumeType?: string;
@@ -55,7 +55,7 @@ export class Resume {
   submitted_date?: string;
 }
 
-export class ProfileBean{
+export class ProfileBean {
   _id = '';
   specificClientAvoid = '';
   specificClient = '';
@@ -65,7 +65,7 @@ export class ProfileBean{
   resumeType = '';
 }
 
-export interface Student{
+export interface Student {
   _id?: string;
   first_name: string;
   last_name: string;
@@ -85,10 +85,11 @@ export class AuthenticationService {
   public resume: Resume = new Resume();
   public student: Student;
   endpoint: string = environment.APIEndpoint;
+
   constructor(private http: HttpClient, private router: Router) {
   }
 
-  public getResume(){
+  public getResume() {
     return this.resume;
   }
 
@@ -127,9 +128,9 @@ export class AuthenticationService {
 
   public isAdmin(): boolean {
     const user = this.getUserDetails();
-    if (user){
+    if (user) {
       return user.role === 'admin';
-    }else {
+    } else {
       return false;
     }
   }
@@ -202,7 +203,7 @@ export class AuthenticationService {
         return data;
       })
     );
-   return request;
+    return request;
   }
 
   public getProfile(): Observable<Student> {
@@ -222,22 +223,32 @@ export class AuthenticationService {
     return request;
   }
 
-  public getProfiles(): Observable<Student[]>{
+  public getProfiles(): Observable<Student[]> {
     const base = this.http.get(`${this.endpoint}/api/get-all-profiles`, {headers: {Authorization: `Bearer ${this.getToken()}`}});
     const request = base.pipe(
       map((data: Student[]) => {
-       const students: Student[] = data;
-       return students;
-    })
+        const students: Student[] = data;
+        return students;
+      })
     );
     return request;
   }
 
-  public updateResume(resume: Resume): Observable<any>{
+  public deleteResume(student: Student): Observable<any> {
+    const base = this.http.post(`${this.endpoint}/api/resubmit-resume`, student, {headers: {Authorization: `Bearer ${this.getToken()}`}});
+    const request = base.pipe(
+      map((data: Student) => {
+        return data;
+      })
+    );
+    return request;
+  }
+
+  public updateResume(resume: Resume): Observable<any> {
     const base = this.http.post(`${this.endpoint}/api/update-resume`, resume, {headers: {Authorization: `Bearer ${this.getToken()}`}});
     const request = base.pipe(
-      map((data: Resume) => {
-        return data;
+      map((res: Resume) => {
+        return res;
       })
     );
     return request;

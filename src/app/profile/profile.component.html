@@ -21,6 +21,7 @@
         </button>
       </div>
       <form (submit)="addProfile()">
+
         <div id="cybertekResume" [ngbCollapse]="isCybertekResume">
           <div class="card">
             <div class="card-body description-text">
@@ -36,6 +37,8 @@
               <textarea name="education" class="tx-aria" [(ngModel)]="profile.education"></textarea>
             </div>
           </div>
+          <!--<app-profile-experience></app-profile-experience>-->
+
         </div>
 
 

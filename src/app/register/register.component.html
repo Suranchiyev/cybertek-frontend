@@ -17,6 +17,11 @@
           Passwords do not match.
         </div>
       </div>
+      <div *ngIf="isError" class="alert alert-danger">
+        <div>
+          {{errorMessage}}
+        </div>
+      </div>
       <div class="form-inputs">
         <div class="inputs full-name">
           <input name="first_name" type="text" placeholder='First Name*' [(ngModel)]="credentials.first_name" #first_name="ngModel">

@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { Directive, EventEmitter, Input, Output, QueryList, ViewChildren } from '@angular/core';
-import {AuthenticationService, Resume, Student} from "../authentication.service";
+import {Component, OnInit} from '@angular/core';
+import {Directive, EventEmitter, Input, Output, QueryList, ViewChildren} from '@angular/core';
+import {AuthenticationService, Resume, Student} from '../authentication.service';
 
 export type SortDirection = 'asc' | 'desc' | '';
-const rotate: {[key: string]: SortDirection} = { 'asc': 'desc', 'desc': '', '': 'asc' };
+const rotate: { [key: string]: SortDirection } = {'asc': 'desc', 'desc': '', '': 'asc'};
 export const compare = (v1, v2) => v1 < v2 ? -1 : v1 > v2 ? 1 : 0;
 
 export interface SortEvent {
@@ -31,7 +31,7 @@ export class NgbdSortableHeader {
   }
 }
 
-import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import {NgbActiveModal, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'ngbd-modal-content',
@@ -42,18 +42,20 @@ export class NgbdModalContent {
   @Input() name;
   @Input() resume: Resume;
 
-  review(){
+  review() {
     this.resume.status = 'reviewing';
     this.auth.updateResume(this.resume).subscribe(resume => {
       console.log('Resume is updated');
       console.log(resume);
       this.activeModal.close('Close click');
       location.href = this.resume.student_resume;
-    },(err) => {
-      console.log('Error during updating resume data',err);
+    }, (err) => {
+      console.log('Error during updating resume data', err);
     });
   }
-  constructor(public activeModal: NgbActiveModal,private auth: AuthenticationService) {}
+
+  constructor(public activeModal: NgbActiveModal, private auth: AuthenticationService) {
+  }
 }
 
 @Component({
@@ -64,19 +66,20 @@ export class NgbdModalContent {
 export class AdminProfileComponent implements OnInit {
   students: Student[];
 
-  private setResume(student: Student){
+  private setResume(student: Student) {
     this.auth.student = student;
     student.resume.status = 'completed';
   }
 
-  constructor(private auth: AuthenticationService,private modalService: NgbModal ) { }
+  constructor(private auth: AuthenticationService, private modalService: NgbModal) {
+  }
 
   ngOnInit() {
     this.auth.getProfiles().subscribe(students => {
-      students.map(function(student){
-        if(student.resume !== undefined){
+      students.map(function (student) {
+        if (student.resume !== undefined) {
           student.date = new Date(student.resume.submitted_date);
-        }else{
+        } else {
           student.date = new Date();
         }
 
@@ -86,7 +89,7 @@ export class AdminProfileComponent implements OnInit {
       console.log(this.students);
     }, (err) => {
       console.warn(err);
-    })
+    });
   }
 
   open(resume) {
@@ -95,13 +98,13 @@ export class AdminProfileComponent implements OnInit {
     modalRef.componentInstance.resume = resume;
   }
 
-  resubmit(resume:Resume){
-    resume.status = 'empty';
-    this.auth.updateResume(resume).subscribe(resume => {
-      console.log('Resume is updated');
-      console.log(resume);
-    },(err) => {
-      console.log('Error during updating resume data',err);
+  resubmit(student: Student) {
+    student.resume.status = 'empty';
+    this.auth.deleteResume(student).subscribe(user => {
+      console.log('User is updated');
+      console.log(user);
+    }, (err) => {
+      console.log('Error during updating resume data', err);
     });
   }
 
@@ -118,7 +121,7 @@ export class AdminProfileComponent implements OnInit {
 
     // sorting countries
     if (direction === '') {
-       this.ngOnInit();
+      this.ngOnInit();
     } else {
       // this.countries = [...COUNTRIES].sort((a, b) => {
       //   const res = compare(a[column], b[column]);

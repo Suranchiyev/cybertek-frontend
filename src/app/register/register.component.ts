@@ -1,97 +1,104 @@
-import { Component } from '@angular/core';
-import { AuthenticationService, TokenPayload } from '../authentication.service';
-import { Router } from '@angular/router';
+import {Component} from '@angular/core';
+import {AuthenticationService, TokenPayload} from '../authentication.service';
+import {Router} from '@angular/router';
 
 @Component({
-  selector:'app-register',
+  selector: 'app-register',
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css']
 })
 
 
 export class RegisterComponent {
-  isAdmin: boolean = false;
-  isValidForm: boolean = true;
-  isPasswordsMatch: boolean = true;
-
-  private registerAsAdmin(){
-    if(this.isAdmin === false){
-      this.isAdmin = true;
-    }else{
-      this.isAdmin = false;
-    }
-  }
-
+  isAdmin = false;
+  isValidForm = true;
+  isPasswordsMatch = true;
   confirmPassword: string;
+
+  isError = false;
+  errorMessage: string;
 
   credentials: TokenPayload = {
     email: '',
     first_name: '',
-    last_name:'',
-    role:'student',
+    last_name: '',
+    role: 'student',
     visa: '',
-    study_course:'',
-    batch_number:'',
+    study_course: '',
+    batch_number: '',
     password: ''
   };
 
-  constructor(private auth: AuthenticationService, private router: Router) {}
+  private registerAsAdmin() {
+    if (this.isAdmin === false) {
+      this.isAdmin = true;
+    } else {
+      this.isAdmin = false;
+    }
+  }
+
+  constructor(private auth: AuthenticationService, private router: Router) {
+  }
 
   register() {
-    if(this.isAdmin){
+    if (this.isAdmin) {
       console.log(this.isAdmin);
       this.credentials.role = 'admin';
       this.credentials.visa = '';
       this.credentials.study_course = '';
       this.credentials.batch_number = '';
-      if(this.credentials.first_name === '' ||
-         this.credentials.last_name  === '' ||
-         this.credentials.email  === '' ||
-         this.credentials.password  === ''||
-         this.confirmPassword  === ''){
+      if (this.credentials.first_name === '' ||
+        this.credentials.last_name === '' ||
+        this.credentials.email === '' ||
+        this.credentials.password === '' ||
+        this.confirmPassword === '') {
         this.isValidForm = false;
-      }else{
+      } else {
         this.isValidForm = true;
-        if(this.confirmPassword === this.credentials.password){
+        if (this.confirmPassword === this.credentials.password) {
           this.isPasswordsMatch = true;
           this.registerUser(this.credentials);
-        }else{
+        } else {
           this.isPasswordsMatch = false;
         }
 
       }
-    }else{
-      if(this.credentials.first_name === '' ||
-        this.credentials.last_name  === '' ||
-        this.credentials.email  === '' ||
-        this.credentials.password  === '' ||
-        this.confirmPassword  === '' ||
-        this.credentials.visa  === '' ||
-        this.credentials.study_course  === '' ||
-        this.credentials.batch_number  === ''){
+    } else {
+      if (this.credentials.first_name === '' ||
+        this.credentials.last_name === '' ||
+        this.credentials.email === '' ||
+        this.credentials.password === '' ||
+        this.confirmPassword === '' ||
+        this.credentials.visa === '' ||
+        this.credentials.study_course === '' ||
+        this.credentials.batch_number === '') {
         this.isValidForm = false;
-      }else{
+      } else {
         this.isValidForm = true;
-        if(this.confirmPassword === this.credentials.password){
+        if (this.confirmPassword === this.credentials.password) {
           this.isPasswordsMatch = true;
           this.registerUser(this.credentials);
-        }else{
+        } else {
           this.isPasswordsMatch = false;
         }
       }
     }
   }
 
-  private registerUser(credentials){
+  private registerUser(credentials) {
+    this.isValidForm = true;
+    this.isPasswordsMatch = true;
+    this.isError = false;
     this.auth.register(credentials).subscribe((user) => {
-      console.log(user.role);
-      if(user.role === 'admin'){
+      if (user.role === 'admin') {
         this.router.navigateByUrl('/admin-profile');
-      }else{
+      } else {
         this.router.navigateByUrl('/profile');
       }
     }, (err) => {
-      console.error(err);
+       this.isError = true;
+       this.errorMessage = err.error.message;
+       console.error(err);
     });
   }
 }

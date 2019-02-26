@@ -1,22 +1,23 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {AuthenticationService, Profile, Student, UserDetails} from '../authentication.service';
-import {HeaderComponent} from "../ui/header/header.component";
+import {HeaderComponent} from '../ui/header/header.component';
 
 @Component({
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.css']
 })
-export class ProfileComponent {
+export class ProfileComponent implements OnInit {
   student: Student;
   isDataLoaded: boolean = false;
+
   constructor(private auth: AuthenticationService, private header: HeaderComponent) {
   }
 
   ngOnInit() {
-    this.auth.getProfile().subscribe(object =>{
+    this.auth.getProfile().subscribe(object => {
       this.student = object;
       console.log(this.student.profile);
-      if(this.student.profile !== undefined){
+      if (this.student.profile !== undefined) {
         this.header.isCustomized = true;
       }
       this.isDataLoaded = true;
@@ -36,17 +37,17 @@ export class ProfileComponent {
     locationHistory: '',
     specificClient: '',
     specificClientAvoid: ''
-  }
+  };
 
   addProfile() {
-    console.log("Adding profile..");
+    console.log('Adding profile..');
     this.profile.resumeType = this.isTraditionalResume ? 'CybertekResume' : 'TraditionalResume',
       console.log(this.profile);
     this.auth.addProfile(this.profile).subscribe(() => {
       this.ngOnInit();
-      console.log("profile.. done");
+      console.log('profile.. done');
     }), (err) => {
       console.error(err);
-    }
+    };
   }
 }
