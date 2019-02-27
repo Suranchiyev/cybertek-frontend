@@ -1,9 +1,9 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatDialogRef } from '@angular/material';
-import { UploadService } from '../upload.service';
-import { forkJoin } from 'rxjs/observable/forkJoin';
-import {HttpParams} from "@angular/common/http";
-import {AuthenticationService} from "../../authentication.service";
+import {Component, OnInit, ViewChild} from '@angular/core';
+import {MatDialogRef} from '@angular/material';
+import {UploadService} from '../upload.service';
+import {forkJoin} from 'rxjs/observable/forkJoin';
+import {HttpParams} from '@angular/common/http';
+import {AuthenticationService} from '../../authentication.service';
 
 @Component({
   selector: 'app-dialog',
@@ -15,7 +15,8 @@ export class DialogComponent implements OnInit {
 
   public files: Set<File> = new Set();
 
-  constructor(public dialogRef: MatDialogRef<DialogComponent>, public uploadService: UploadService,public auth: AuthenticationService) {}
+  constructor(public dialogRef: MatDialogRef<DialogComponent>, public uploadService: UploadService, public auth: AuthenticationService) {
+  }
 
   ngOnInit() {
 
@@ -55,19 +56,19 @@ export class DialogComponent implements OnInit {
     // start the upload and save the progress map
 
     let params = new HttpParams({
-      fromObject : {
-        'fileType' : 'resume',
-        'role' : this.auth.getUserDetails().role,
-        'resumeId': this.auth.student.resume === undefined ? 'undefined' : this.auth.student.resume._id ,
+      fromObject: {
+        'fileType': 'resume',
+        'role': this.auth.getUserDetails().role,
+        'resumeId': this.auth.student.resume === undefined ? 'undefined' : this.auth.student.resume._id,
         'profileId': this.auth.student._id,
-        'name': this.auth.student.first_name+this.auth.student.last_name
+        'name': this.auth.student.first_name + this.auth.student.last_name
       }
     });
 
-    this.progress = this.uploadService.upload(this.files,params);
+    this.progress = this.uploadService.upload(this.files, params);
 
     for (const key in this.progress) {
-      this.progress[key].progress.subscribe(val => console.log('--->: '+val));
+      this.progress[key].progress.subscribe(val => console.log('--->: ' + val));
     }
 
     // convert the progress map into an array
@@ -97,6 +98,7 @@ export class DialogComponent implements OnInit {
       // ... the upload was successful...
       this.uploadSuccessful = true;
       this.oneFileIsUploaded = true;
+      this.auth.student.resume.status = 'completed';
 
       // ... and the component is no longer uploading
       this.uploading = false;

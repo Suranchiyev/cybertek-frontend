@@ -43,9 +43,9 @@ export class NgbdModalContent {
   @Input() resume: Resume;
 
   review() {
-    this.resume.status = 'reviewing';
     this.auth.updateResume(this.resume).subscribe(resume => {
       console.log('Resume is updated');
+      this.resume.status = 'reviewing';
       console.log(resume);
       this.activeModal.close('Close click');
       location.href = this.resume.student_resume;
@@ -68,7 +68,6 @@ export class AdminProfileComponent implements OnInit {
 
   private setResume(student: Student) {
     this.auth.student = student;
-    student.resume.status = 'completed';
   }
 
   constructor(private auth: AuthenticationService, private modalService: NgbModal) {
@@ -99,8 +98,9 @@ export class AdminProfileComponent implements OnInit {
   }
 
   resubmit(student: Student) {
-    student.resume.status = 'empty';
     this.auth.deleteResume(student).subscribe(user => {
+      student.resume.status = 'empty';
+      this.auth.resume = user.resume;
       console.log('User is updated');
       console.log(user);
     }, (err) => {
