@@ -3,7 +3,7 @@
   <div class="form-container">
     <div *ngIf="!isAdmin" class="form-header">Create your student account</div>
     <div *ngIf="!isAdmin" class="form-description">Your student account information will be used to review your resume and for other Cybertek School market processes.
-      Make sure all the information is correct correct
+      Make sure all the information is correct.
     </div>
     <form id="signUp-form" (submit)="register()">
       <div *ngIf="!isValidForm" class="alert alert-danger">
