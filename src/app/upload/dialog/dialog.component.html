@@ -1,6 +1,11 @@
 <input type="file" #file style="display: none" (change)="onFilesAdded()" multiple />
 <div class="container" fxLayout="column" fxLayoutAlign="space-evenly stretch">
   <h1 mat-dialog-title>Upload Files</h1>
+  <div *ngIf="displayErrorMessage" class="alert alert-danger">
+    <div>
+      Only docx and doc files are valid
+    </div>
+  </div>
   <div>
     <button name="btn-dialog" *ngIf="!oneFileIsUploaded" [disabled]="uploading || uploadSuccessful" mat-raised-button color="primary" class="add-files-btn" (click)="addFiles()">
       Choose File

@@ -22,6 +22,7 @@ export class DialogComponent implements OnInit {
 
   }
 
+  displayErrorMessage = false;
   oneFileIsUploaded = false;
   progress;
   canBeClosed = true;
@@ -34,7 +35,14 @@ export class DialogComponent implements OnInit {
     const files: { [key: string]: File } = this.file.nativeElement.files;
     for (let key in files) {
       if (!isNaN(parseInt(key))) {
-        this.files.add(files[key]);
+        console.log(files[key].type);
+        if (files[key].type === 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' || files[key].type === 'application/msword') {
+          this.displayErrorMessage = false;
+          this.files.add(files[key]);
+        } else {
+          this.displayErrorMessage = true;
+          this.oneFileIsUploaded = false;
+        }
       }
     }
   }
@@ -95,11 +103,12 @@ export class DialogComponent implements OnInit {
       this.canBeClosed = true;
       this.dialogRef.disableClose = false;
 
-      // ... the upload was successful...
+      // ... the xupload was successful...
       this.uploadSuccessful = true;
       this.oneFileIsUploaded = true;
-      this.auth.student.resume.status = 'completed';
-
+      if (this.auth.isAdmin()) {
+        this.auth.student.resume.status = 'completed';
+      }
       // ... and the component is no longer uploading
       this.uploading = false;
     });

@@ -5,5 +5,5 @@
 
 export const environment = {
   production: false,
-  APIEndpoint: 'https://cybertek-resume-server.herokuapp.com'
+  APIEndpoint: 'https://cybertek-resume-api.herokuapp.com'
 };
